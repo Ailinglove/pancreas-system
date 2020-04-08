@@ -5,7 +5,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-8 col-sm-offset-2 text">
-                    <h1><strong>胰腺数据集</strong> </h1>
+                    <h1><strong>胰腺数据管理系统</strong> </h1>
                  </div>
             </div>
             <div class="row">

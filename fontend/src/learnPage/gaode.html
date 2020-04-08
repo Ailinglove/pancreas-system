@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="container" style="width:500px;height: 500px;"></div>
+
+
+<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=e3b717f1da07f7575bd45bf981573a5a"></script>
+<script src="//webapi.amap.com/ui/1.0/main.js"></script>
+<script>
+  var map = new AMap.Map('container', {
+    zoom:1,//级别
+    center: [116.397428, 39.90923],//中心点坐标
+    viewMode:'3D',//使用3D视图,
+    mapStyle: 'amap://styles/0f32f0f846e83b6c411b3484882fdb53'
+  });
+  //加载PointSimplifier，loadUI的路径参数为模块名中 'ui/' 之后的部分
+  AMapUI.loadUI(['misc/PointSimplifier'], function(PointSimplifier) {
+
+    if (!PointSimplifier.supportCanvas) {
+      alert('当前环境不支持 Canvas！');
+      return;
+    }
+
+    //启动页面
+    initPage(PointSimplifier);
+  });
+
+  function initPage(PointSimplifier) {
+    //创建组件实例
+    var pointSimplifierIns = new PointSimplifier({
+      map: map, //关联的map
+      compareDataItem: function(a, b, aIndex, bIndex) {
+        //数据源中靠后的元素优先，index大的排到前面去
+        return aIndex > bIndex ? -1 : 1;
+      },
+      getPosition: function(dataItem) {
+        //返回数据项的经纬度，AMap.LngLat实例或者经纬度数组
+        return dataItem.position;
+      },
+      getHoverTitle: function(dataItem, idx) {
+        //返回数据项的Title信息，鼠标hover时显示
+        return '序号: ' + idx;
+      },
+      renderOptions: {
+        //点的样式
+        pointStyle: {
+          fillStyle: 'blue' //蓝色填充
+        }
+      }
+    });
+
+    //随机创建一批点，仅作示意
+    var data = createPoints(map.getCenter(), 100000);
+
+    //设置数据源，data需要是一个数组
+    pointSimplifierIns.setData(data);
+
+    //监听事件
+    pointSimplifierIns.on('pointClick pointMouseover pointMouseout', function(e, record) {
+      console.log(e.type, record);
+    });
+  }
+
+  //仅作示意
+  function createPoints(center, num) {
+    var data = [];
+    for (var i = 0, len = num; i < len; i++) {
+      data.push({
+        position: [
+          center.getLng() + (Math.random() > 0.5 ? 1 : -1) * Math.random(),
+          center.getLat() + (Math.random() > 0.5 ? 1 : -1) * Math.random()
+        ]
+      });
+    }
+    return data;
+  }
+</script>
+</body>
+</html>

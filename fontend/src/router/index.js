@@ -33,10 +33,66 @@ import Login from '@/components/login/index'
 import testShow from '@/components/showdicom/testShow'
 
 import hello from '@/components/showdicom/HelloWorld'
+
+
+
+
+// 扩展组件
+
+import MainIndex from '@/expend/dataSummarization/index'
+import AICompute from '@/expend/AICompute/index'
+import AIMainPage from '@/expend/AICompute/mainPage'
+import classfy from '@/expend/AICompute/analysis/classification'
+import segmentation from "../expend/AICompute/analysis/segmentation";
+import location from "../expend/AICompute/analysis/location";
+import other from "../expend/AICompute/analysis/other";
+
+import algorithmicMainPage from "../expend/AICompute/algorithmicMainPage";
+import dwvtest from "../learnPage/dwvtest";
+//
+// import learnbootstrap from "../learnPage/learnbootstrap";
+import mainPage from "../expend/AICompute/mainPage";
 Vue.use(Router)
+
 
 export default new Router({
   routes: [
+    {
+      path:'/expend',
+      component: MainIndex
+    },
+    {
+      path:'/AICompute',
+      component:AICompute,
+      children:[
+        {
+          path:'',
+          component:mainPage,
+        },
+
+        {
+          path:'classify',
+          name:'classify',
+          component:classfy
+        },
+        {
+          path:'segmentation',
+          name:'segment',
+          component:segmentation
+        },
+        {
+          path:'location',
+          name:'location',
+          component:location
+        },
+        {
+          path:'other',
+          name:'other',
+          component:other
+        },
+      ]
+
+    },
     {
       path:'/login',
       component:Login,
@@ -96,7 +152,8 @@ export default new Router({
       path: '/testshow',
       name: 'testShow',
       component: testShow,
-      leaf: true,//只有一个节点
+      leaf: true,//只有一个节点,
+      hidden:true,
         children: [
             { path: '/dicomShow', component: testShow, name: 'Dicom' }
         ]
@@ -111,7 +168,14 @@ export default new Router({
       component:MainPage,
       name:'mainPage',
       hidden:true
-},
+    },
+
+
+    {path:'/testdwv',
+      component:dwvtest
+    },
+
+
   ]
 
 })

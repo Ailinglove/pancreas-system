@@ -4,7 +4,9 @@
 		<el-col :span="24" class="header">
 			<el-col :span="10"style="width:90%;text-align: center">
 				<div >
-					<strong style="font-size: 24px;color: #000000;">胰腺数据管理系统</strong>
+          <strong style="font-size: 24px;color: #000000;">胰腺数据管理系统</strong>
+
+
 				</div>
 			</el-col>
 			<el-col :span="4" class="userinfo" style="width:10%;text-align: center">
@@ -21,6 +23,7 @@
 		<el-col :span="24" class="main">
 			<aside :class="collapsed?'menu-collapsed':'menu-expanded'">
 				<!--导航菜单-->
+        <strong  style="box-shadow: 1px 2px 5px #bbb;width:230px;font-size: 18px;color: #000000;display:inline-block;height: 50px;line-height: 50px;border: 5px outset #6BA2D6; ">胰腺数据集</strong>
 				<el-menu :default-active="$route.path" class="el-menu-vertical-demo" @open="handleopen" @close="handleclose" @select="handleselect"
 					 unique-opened router v-show="!collapsed"
           style="background-color: #6BA2D6">
@@ -154,7 +157,9 @@
 </script>
 
 <style scoped lang="scss">
-
+  /**{*/
+  /*  box-sizing: border-box;*/
+  /*}*/
   .el-submenu__title{
     background-color: #99a9bf;
 
@@ -166,8 +171,8 @@
 		width: 100%;
 
 		.header {
-			height: 80px;
-			line-height: 80px;
+			height: 60px;
+			line-height: 60px;
       background-color: #8DC3FF;
 			color:#000;
 			.userinfo {
@@ -231,7 +236,7 @@
 			display: flex;
 			// background: #324057;
 			position: absolute;
-			top: 80px;
+			top: 60px;
 			bottom: 0px;
 			overflow: hidden;
 			aside {

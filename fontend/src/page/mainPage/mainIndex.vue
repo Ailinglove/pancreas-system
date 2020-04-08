@@ -4,7 +4,7 @@
       <el-header>
         <el-row>
           <el-col :span="2"><div><img src="./imgs/logo.jpg" alt="" style="width: 55px;height: 55px; position: absolute;top:5px;left:0;z-index: 9999;"></div></el-col>
-          <el-col :span="20"><h1 style="position: absolute; left: 40%;">医疗大数据样本集管理平台</h1></el-col>
+          <el-col :span="20"><h1 style="position: absolute; left: 40%;">医疗大数据智能管理平台</h1></el-col>
            <el-col :span="4" class="login">
               <nav style="position:absolute; right: 3%;">
                   <a href="">注册</a> |
