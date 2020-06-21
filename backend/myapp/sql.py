@@ -3,40 +3,14 @@ import os
 from django.db.models import Q
 import pydicom
 from django.core import serializers
-from .models import admin,patientBasicInfo,pathoDataInfo,imgDataInfo,tumorMarkerInfo
+from .models import admin,pancreaseData
 
-# 对病人基本信息的处理
-def insertBasic(itemLs):
-
-    exist = patientBasicInfo.objects.filter(patientID=itemLs[1])
-    if exist.exists():
-        print("this data item is existed")
-    else:
-        patientBasicInfo.objects.get_or_create(
-        casename=itemLs[0],
-        patientID=itemLs[1],
-        houspitalID=itemLs[2],
-        sex=itemLs[3],
-        age=itemLs[4],
-        BMI=itemLs[5],
-        smokingH=itemLs[6],
-        GeneticH=itemLs[7])
-def patientBasicInfoList():
-    patientList=serializers.serialize('json',patientBasicInfo.objects.all())
-    return patientList
-def searchBasicInfo(ID): # 查找patientID号为ID的病人
-    BasicInfo=serializers.serialize('json',patientBasicInfo.objects.filter(patientID=ID))
-    return BasicInfo
-
-def deletePatient(id):
-    patientBasicInfo.objects.filter(id=int(id)).delete()
-    return 'success'
-def upgradePatient(param):
-    patientBasicInfo.objects.filter(id=int(param['id'])).update(casename=param['casename'],age=param['age'],sex=param['sex'],isExisted=param['isExisted'],tumorClass=param['tumorClass'])
-    # print( serializers.serialize('json',patientBasicInfo.objects.filter(id=int(param['id']))))
-    return 'success'
-
-def imgDataInfoList(type,value):
+# 胰腺癌数据
+def retPancrease():
+    json=serializers.serialize('json',pancreaseData.objects.all())
+    return json
+'''
+def imgDataInfoList(type,value=''):
     if type==1:#获取全部的数据
         json=serializers.serialize('json',imgDataInfo.objects.all())
     elif type==2:#查找姓名
@@ -114,7 +88,7 @@ def tumorMarkerInfoList():
     tumorMarkerList=serializers.serialize('json',tumorMarkerInfo.objects.all())
     return tumorMarkerList
 
-
+'''
 
 
 

@@ -4,8 +4,13 @@ from django.urls import path
 from django.conf.urls import url
 from myapp import views
 urlpatterns=[
-    path('test/',views.test),
-    path('retPatientList/',views.ret_patientlist),
+    path('pancrease/',views.retPancrease),
+
+
+
+]
+'''
+path('retPatientList/',views.ret_patientlist),
     path('user/remove/<str:id>',views.delete_patient),
     path('patient/upgrade/',views.upgrade_patient),
 
@@ -36,7 +41,5 @@ urlpatterns=[
 
     #数据统计
     path('dataStatic/',views.static)
-
-
-]
+    '''
 

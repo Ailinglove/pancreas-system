@@ -1,181 +1,92 @@
+import VueRouter from 'vue-router'
 import Vue from 'vue'
-import Router from 'vue-router'
-//数据采集组件
-import Upload from '@/components/DataCollection/dataUpload'
-import Download from '@/components/DataCollection/dataDownload'
+// import Home from "../components/Home";
+// import About from "../components/About";
+// import user from "../components/user";
+import Home from "@/views/home";
+import Breast from "@/views/tumortype/breast"
+import Pancreas from "@/views/tumortype/pancreas"
+import Liver from "@/views/tumortype/liver/index.vue"
+import Lung from "@/views/tumortype/lung"
+import Other from "@/views/tumortype/other"
+
+import tumorType from "@/views/tumortype"
+// const user=()=>import("~@/views/home")
 
 
-//数据管理组件
-import UserList from '@/components/DataManage/PatientList/userlist'
-import YXIndex from '@/components/DataManage/YingXiangData/pancreasData'
-import BLIndex from '@/components/DataManage/BingLiData/bingLiIndex'
-import GYIndex from '@/components/DataManage/GeneData/geneIndex'
-import LCIndex from '@/components/DataManage/LinChuangData/linChuangIndex'
-import TMIndex from '@/components/DataManage/TumorMarkerData/tumorMarkerIndex'
-import DetailInfor from '@/components/DataManage/PatientList/detailInfo'
-import Home from '@/components/Home'
-import Main from '@/components/Main'
-import Setting from '@/components/settings'
+import MainIndex from '@/views/expend/dataSummarization/index'
+import AICompute from '@/views/expend/AICompute/index'
+// import AIMainPage from '@/expend/AICompute/mainPage'
+import classfy from '@/views/expend/AICompute/analysis/classification'
+import segmentation from "@/views/expend/AICompute/analysis/segmentation"
+import location from "@/views/expend/AICompute/analysis/location"
+import other from "@/views/expend/AICompute/analysis/other"
 
-// 数据统计组件
-import DiseaseStatic from '@/components/DataStatic/DiseaseSpeciesStatic'
-import PatientStatic from '@/components/DataStatic/patientStatic'
+import mainPage from "@/views/expend/AICompute/mainPage"
+// 1. 通过vue.use(插件),安装插件
+Vue.use(VueRouter)
 
-import ModalityStatic from '@/components/DataStatic/modalityStatic'
+// 2. 创建VueRouter对象
+const routes=[
+  {
+    path:'/expend',
+    component: MainIndex
+  },
 
-
-import MainPage from '@/page/mainPage/mainIndex'
-
-
-import chart from '@/components/Echarts/index'
-import Login from '@/components/login/index'
-
-import testShow from '@/components/showdicom/testShow'
-
-import hello from '@/components/showdicom/HelloWorld'
-
-
-
-
-// 扩展组件
-
-import MainIndex from '@/expend/dataSummarization/index'
-import AICompute from '@/expend/AICompute/index'
-import AIMainPage from '@/expend/AICompute/mainPage'
-import classfy from '@/expend/AICompute/analysis/classification'
-import segmentation from "../expend/AICompute/analysis/segmentation";
-import location from "../expend/AICompute/analysis/location";
-import other from "../expend/AICompute/analysis/other";
-
-import algorithmicMainPage from "../expend/AICompute/algorithmicMainPage";
-import dwvtest from "../learnPage/dwvtest";
-//
-// import learnbootstrap from "../learnPage/learnbootstrap";
-import mainPage from "../expend/AICompute/mainPage";
-Vue.use(Router)
-
-
-export default new Router({
-  routes: [
-    {
-      path:'/expend',
-      component: MainIndex
-    },
-    {
-      path:'/AICompute',
-      component:AICompute,
-      children:[
-        {
-          path:'',
-          component:mainPage,
-        },
-
-        {
-          path:'classify',
-          name:'classify',
-          component:classfy
-        },
-        {
-          path:'segmentation',
-          name:'segment',
-          component:segmentation
-        },
-        {
-          path:'location',
-          name:'location',
-          component:location
-        },
-        {
-          path:'other',
-          name:'other',
-          component:other
-        },
-      ]
-
-    },
-    {
-      path:'/login',
-      component:Login,
-      name: 'login',
-      hidden: true
-    },
-    {
-      path:'/hello',
-      component:hello,
-      name: 'hello',
-      hidden: true
-    },
-    {
-      path:'/database/pancrease/datacollection',
-      component:Home,
-      name:'数据采集',
-      children: [
-            { path: '/database/pancrease/datacollection/upload', component: Upload, name: '数据上传' },
-            { path: '/database/pancrease/datacollection/download',component: Download, name: '数据下载' },
-
-      ]
-    },
-    {
-        path: '/database/pancrease/dataManagement',
-        component: Home,
-        name: '胰腺数据管理',
-        children: [
-            { path: '/database/pancrease/dataManagement/userlist', component: UserList, name: '病人信息管理' },
-            { path: '/database/pancrease/dataManagement/YXDataManagement', component: YXIndex, name: '影像数据管理' },
-            { path: '/database/pancrease/dataManagement/BLDataManagement', component: BLIndex, name: '病理数据管理' },
-            { path: '/database/pancrease/dataManagement/GYDataManagement', component: GYIndex, name: '基因数据管理' },
-            { path: '/database/pancrease/dataManagement/TMDataManagement', component: TMIndex, name: '肿瘤标志物' },
+  {
+    path:'',
+    redirect:'/home'
+  },
+  {
+    path:'/tumortype',
+    component: tumorType,
+    children:[
+      {
+        path:'breast',
+        component: Breast
+      },
+      {
+        path:'pancreas',
+        component: Pancreas,
+        children:[
+          {
+            path:'segmentation',
+            name:'segment',
+            component:segmentation
+          },
         ]
-    },
-    {
-        path: '/database/pancrease/datastatic',
-        component: Home,
-        name: '统计分析管理',
-        children: [
-          { path: '/database/pancrease/datastatic/patientStatic', component: PatientStatic, name: '按患者统计分析' },
-          { path: '/database/pancrease/datastatic/diseaseSpecoesStatic', component: DiseaseStatic, name: '按病种统计分析' },
-          { path: '/database/pancrease/datastatic/modalityStatic', component: ModalityStatic, name: '按模态统计分析' }
-
-          ]
-    },
-    {
-        path: '/database/pancrease/settings',
-        component: Setting,
-        name: '',
-        leaf: true,//只有一个节点
-        children: [
-            { path: '/database/pancrease/settings', component: Setting, name: '系统设置' }
-        ]
-    },
-
-    {
-      path: '/testshow',
-      name: 'testShow',
-      component: testShow,
-      leaf: true,//只有一个节点,
-      hidden:true,
-        children: [
-            { path: '/dicomShow', component: testShow, name: 'Dicom' }
-        ]
-    },
-    {
-      path: '/detailInfo/:patientID/:houspitalID',
-      name: 'detailInfo',
-      component: DetailInfor,
-      hidden: true
-    },
-    {path:'/',
-      component:MainPage,
-      name:'mainPage',
-      hidden:true
-    },
+      },
+      {
+        path:'lung',
+        component: Lung
+      },
+      {
+        path:'other',
+        component: Other
+      }
+    ]
+  },
 
 
-    {path:'/testdwv',
-      component:dwvtest
+  {
+    path: '/home',
+    meta: {
+      title: '首页'
     },
+    component: Home,
+  },
 
 
-  ]
+]
+const router=new VueRouter({
+  // 配置路由和组件间的应用关系
+  routes,
 
 })
+
+// router.beforeEach((to,from,next)=>{
+//   document.title=to.matched[0].meta.title
+//   next()
+// })
+
+export default router

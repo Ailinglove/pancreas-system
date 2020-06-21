@@ -2,10 +2,8 @@ from django.contrib import admin
 from . import models
 # Register your models here.
 admin.site.register(models.admin) #管理员
-admin.site.register(models.imgDataInfo) #影像数据信息
-admin.site.register(models.pathoDataInfo) # 病理数据信息
-admin.site.register(models.tumorMarkerInfo) # 肿瘤标志物信息
-admin.site.register(models.patientBasicInfo) #病人基本信息
+admin.site.register(models.pancreaseData) #影像数据信息
+
 #
 # def makesentense(n):
 #     import re

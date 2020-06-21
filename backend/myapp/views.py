@@ -19,17 +19,14 @@ from django.db.models.aggregates import Count
 '''
 
 #病人基本信息处理
-def ret_patientlist(request):
+def retPancrease(request):
     if request.method=='GET':
-        if request.GET['patientID']:
-            ID=request.GET['patientID']
-            data=sql.searchBasicInfo(ID)
-        else:
-            data=sql.patientBasicInfoList()
+        data=sql.retPancrease()
 
         return JsonResponse({'status':0,'data':data})
     else:
         return JsonResponse({'status':1,'message':'You need GET method'})
+        '''
 def delete_patient(request,id):
     if request.method=='GET':
         sql.deletePatient(id)
@@ -44,18 +41,8 @@ def upgrade_patient(request):
 #影像数据信息处理
 def retImgInfoList(request):
     print(request.GET)
-    if int(request.GET['searchClick'])==2:#代表按条件筛选按钮被点击
-        searchItem= request.GET['searchItem']
-        print('查找的条目有：',searchItem,'点击筛选按钮')
-        json=sql.searchImgInfo(searchItem,2)
-    elif int(request.GET['searchClick'])==1:#代表查找按钮被点击：
-        print('查找的条目有：',  '点击查找按钮')
-        searchItem = request.GET['searchItem']
-        json = sql.searchImgInfo(searchItem,1)
-    else:
-        print(int(request.GET['searchClick']))
-        type,value=int(request.GET['type']),request.GET['name']
-        json=sql.imgDataInfoList(type,value)
+    json = sql.imgDataInfoList(1)
+
     return JsonResponse({'status':0,'data':json})
 
 def deleteImgData(request,id):
@@ -102,9 +89,6 @@ def retTumorMarkerInfoList(request):
     else:
         return JsonResponse({'status': 1, 'message': 'You need GET method'})
 
-'''
-                    *********************数据采集*********************
-'''
 
 def fileUploader(request):
     print('--------------------------------------------')
@@ -166,7 +150,7 @@ def test(request):
 
 #
 #
-'''******************************数据显示页面操作***********************************'''
+
 
 def getImgURL(request):
     root = r'D:\work\vue\DataManage\backend\static\imgData\0QG00000653'
@@ -202,8 +186,6 @@ def showDicom(request):
 
 
 
-
-'''******************************数据统计页面操作***********************************'''
 def static(request):
     age=patientBasicInfo.objects.values('age').annotate(count=Count('age')).order_by().values('age','count')
     return JsonResponse({"status":0,"age":age})
@@ -223,7 +205,7 @@ def testDicom(request):
 
 
 
-
+'''
 
 
 

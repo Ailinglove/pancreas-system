@@ -26,4 +26,4 @@ urlpatterns = [
 # url(r'^static/(?P<path>.*)',serve,{"document_root":settings.STATIC_ROOT}),
 
 ]
-import mysql.connector
+#import mysql.connector
