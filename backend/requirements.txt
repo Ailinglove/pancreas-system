@@ -25,7 +25,7 @@ itk-registration==5.0.1
 itk-segmentation==5.0.1
 jdcal==1.4.1
 jedi==0.13.3
-joblib==0.13.2
+joblib==1.2.0
 kiwisolver==1.1.0
 matplotlib==3.0.3
 networkx==2.3
